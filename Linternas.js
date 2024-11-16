@@ -1,4 +1,3 @@
-// Clase Linterna
 class Linterna {
   constructor(x, y, tamaño) {
     this.x = x;

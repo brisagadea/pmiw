@@ -1,39 +1,44 @@
 class Juego {
-  constructor(cantidadObstaculos, cantidadLinternas) {
+  constructor(cantidadObstaculos,cantidadLinternas) {
     this.cantidadObstaculos = cantidadObstaculos;
     this.cantidadLinternas = cantidadLinternas;
-    this.estado = 0; // 0: Inicio, 1: Instrucciones, 2: Jugando, 3: Ganaste, 4: Perdiste
+    this.estado = 0;
     this.linternasRecolectadas = 0;
     this.crearPersonaje();
     this.crearObstaculos();
     this.crearLinternas();
-    this.textos = textos || [];
+    this.textos = [];
+    this.textos = loadStrings("data/textos.txt");
+    //this.linternasRecolectadas = new linternasRecolectadas();
   }
 
   dibujar() {
+    let valorVolumen = map(mouseX, 0, width, 0.1, 1);
+    sonidoFondo.amp(valorVolumen);
+    
     if (this.estado === 0) {
       // Pantalla de inicio
-      background(0);
+      fondo.dibujar();
       textAlign(CENTER, CENTER);
       textSize(32);
       fill(255);
-      text(this.textos[0] || "¡Bienvenido!", width / 2, height / 2 - 100);
-      fill(200, 0, 0);
-      this.boton(width / 2 - 70, height / 2);
+      text(this.textos[0], width / 2, height / 2 - 100);
+      fill(200, 0, 0);// Botón "instrucciones
+      this.boton (width / 2 - 70, height /2);
       fill(255);
       textSize(20);
-      text(this.textos[1] || "Instrucciones", width / 2, height / 2 + 20);
+      text(this.textos[1], width / 2, height / 2 + 20);
     } else if (this.estado === 1) {
-      // Pantalla de instrucciones
-      background(0);
+      // instrucciones y reglas
+      fondo.dibujar();
       textSize(16);
       fill(255);
       let y = height / 2 - 130;
-      for (let i = 2; i < this.textos.length - 6; i++) {
-        text(this.textos[i] || `Texto ${i}`, width / 2, y);
-        y += 18; // Interlineado
+      for (let i = 2; i < this.textos.length -11; i++) { //funcion para crear parrfo
+        text(this.textos[i], width / 2, y);
+        y += 18; // interlineado
       }
-      fill(200, 0, 0);
+       fill(200, 0, 0);
       this.boton(width / 2 - 70, height / 2 + 120);
     } else if (this.estado === 2) {
       // Pantalla del juego
@@ -53,24 +58,25 @@ class Juego {
         }
       }
 
-      for (let linterna of this.linternas) {
-        if (!linterna.recolectada) {
-          linterna.mostrar();
-          if (linterna.colisionaCon(this.personaje)) {
-            linterna.recolectada = true;
-            this.linternasRecolectadas++;
-            if (this.linternasRecolectadas >= 5) {
-              this.estado = 3; // Ganaste
-            }
-          }
-        }
+     for (let linterna of this.linternas) {
+  if (linterna.recolectada) { // Mostrar solo linternas no recolectadas
+    linterna.mostrar();
+    if (linterna.colisionaCon(this.personaje)) {
+      linterna.recolectada = true; // Marcar como recolectada
+      this.linternasRecolectadas++;
+      if (this.linternasRecolectadas >= 5) {
+        this.estado = 3; // Ganaste
       }
+    }
+  }
+}
+
 
       // Mostrar vidas y linternas recolectadas
       fill(0);
       textSize(16);
-      text(`Vidas: ${vidas}`, 10, 20);
-      text(`Linternas: ${this.linternasRecolectadas}`, 10, 40);
+      text("Vidas:", 40, 30);
+      text("Linternas:", 50, 40);
     } else if (this.estado === 3) {
       // Pantalla de victoria
       background(0, 255, 0);
@@ -87,6 +93,11 @@ class Juego {
       text("Perdiste", width / 2, height / 2);
     }
   }
+  manejosonido() {
+    if (!sonidoFondo.isPlaying()) {
+      sonidoFondo.loop();
+    }
+  }
 
   boton(x, y) {
     rect(x, y, 140, 40);
@@ -98,14 +109,16 @@ class Juego {
     }
   }
 
-  mouseClic() {
+ mouseclic() {
     if (this.estado === 0) {
       let x = width / 2 - 70;
       let y = height / 2;
       let an = 140;
       let al = 40;
-      if (mouseX > x && mouseX < x + an && mouseY > y && mouseY < y + al) {
-        this.estado = 1; // Cambia al estado de instrucciones
+      if (mouseX > x && mouseX < x+an && mouseY > y && mouseY < y+al) {
+        this.estado = 1; // Cambia al estado de juego
+        fondo.cambiaimagen();
+        this.manejosonido();
       }
     }
   }
@@ -133,5 +146,13 @@ crearLinternas() {
     if (this.estado === 2) {
       this.personaje.teclasMovimiento(keyCode);
     }
+  }
+}
+
+function ordenTexto (linea) {
+  fill(255); // color del texto
+  if (orden < textos.length)
+  {
+    text(textos [linea], width/2, height/2); //centrar
   }
 }

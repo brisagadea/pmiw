@@ -14,7 +14,13 @@ Reglas:
 Presioná ENTER para comenzar
 
 
-¡Ganaste! - Realizado por Brisa Gadea y Anahi Ganem
-Perdiste :( - Realizado por Brisa Gadea y Anahi Ganem
+¡Ganaste! 
+Realizado por Brisa Gadea y Anahi ganem
 
+Reiniciar
+
+Perdiste :(  
+Realizado por Brisa Gadea y Anahi ganem
+
+Reiniciar
 
