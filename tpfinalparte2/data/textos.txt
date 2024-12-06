@@ -1,0 +1,23 @@
+Casa Tomada 
+Instrucciones
+Instrucciones:
+El jugador se mueve de izquierda a derecha.
+Deberá avanzar a través de la casa mientras
+esquiva zonas ocupadas (como puertas y paredes)
+y recolecta objetos para poder escapar.
+
+Reglas:
+• El jugador comienza con 3 vidas.
+• Cada vez que choque con un obstáculo, pierde una vida.
+• El objetivo es recolectar 5 linternas para salir de la casa.
+
+Presioná ENTER para comenzar
+
+
+¡Ganaste! 
+Juego realizado por Brisa Gadea y Anahi ganem
+
+Perdiste :(  
+Juego realizado por Brisa Gadea y Anahi ganem
+
+Reiniciar
